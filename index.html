@@ -1,309 +1,825 @@
 <!DOCTYPE html>
 <html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Agentic AI // Voice Portal</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <head>
+    <!-- Optional futuristic font -->
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;500;700&display=swap" rel="stylesheet">
 
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
-    <meta name="author" content="Tooplate">
-    <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700" rel="stylesheet">
+    <style>
+        :root {
+            --bg-dark: #020817;
+            --accent: #4df2ff;
+            --accent-soft: rgba(77, 242, 255, 0.2);
+            --accent-pink: #ff5af1;
+            --accent-purple: #7b5cff;
+            --danger: #ff3366;
+            --radius-xl: 26px;
+            --radius-pill: 999px;
+            --border-subtle: rgba(255, 255, 255, 0.08);
+            --text-main: #f8fafc;
+            --text-soft: #94a3b8;
+            --glow-soft: 0 0 24px rgba(77, 242, 255, 0.25);
+            --transition-fast: 0.22s ease;
+            --transition-mid: 0.35s cubic-bezier(.34,.01,.2,1);
+        }
 
-    <title>Earth - Free HTML5 Bootstrap Theme</title>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-    <!-- Bootstrap core CSS -->
-    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+        body {
+            font-family: 'Space Grotesk', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: radial-gradient(circle at top, #0f172a 0, #020817 40%, #000 100%);
+            color: var(--text-main);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: stretch;
+            padding: 28px;
+            overflow: hidden;
+            position: relative;
+        }
 
+        /* Animated grid background */
+        body::before {
+            content: "";
+            position: fixed;
+            inset: -50px;
+            background-image:
+                radial-gradient(circle at top left, rgba(77, 242, 255, 0.12), transparent 60%),
+                radial-gradient(circle at bottom right, rgba(123, 92, 255, 0.16), transparent 55%);
+            mix-blend-mode: screen;
+            pointer-events: none;
+            z-index: -3;
+            animation: aurora 14s infinite alternate ease-in-out;
+        }
 
-    <!-- Additional CSS Files -->
-    <link rel="stylesheet" href="assets/css/fontawesome.css">
-    <link rel="stylesheet" href="assets/css/tooplate-main.css">
-    <link rel="stylesheet" href="assets/css/owl.css">
+        body::after {
+            content: "";
+            position: fixed;
+            inset: -50px;
+            background-image: 
+                linear-gradient(rgba(148, 163, 253, 0.06) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(148, 163, 253, 0.04) 1px, transparent 1px);
+            background-size: 40px 40px;
+            opacity: 0.18;
+            mask-image: radial-gradient(circle at center, black 0%, transparent 80%);
+            pointer-events: none;
+            z-index: -4;
+            animation: grid-pan 40s linear infinite;
+        }
 
-  </head>
-<!--
-Tooplate 2113 Earth
-https://www.tooplate.com/view/2113-earth
--->
-  <body>
+        @keyframes aurora {
+            0% { transform: translate3d(0,0,0) scale(1); opacity: 0.9; }
+            100% { transform: translate3d(-20px, 16px, 0) scale(1.06); opacity: 1; }
+        }
 
-    <div class="sequence">
-  
-      <div class="seq-preloader">
-        <svg width="39" height="16" viewBox="0 0 39 16" xmlns="http://www.w3.org/2000/svg" class="seq-preload-indicator"><g fill="#F96D38"><path class="seq-preload-circle seq-preload-circle-1" d="M3.999 12.012c2.209 0 3.999-1.791 3.999-3.999s-1.79-3.999-3.999-3.999-3.999 1.791-3.999 3.999 1.79 3.999 3.999 3.999z"/><path class="seq-preload-circle seq-preload-circle-2" d="M15.996 13.468c3.018 0 5.465-2.447 5.465-5.466 0-3.018-2.447-5.465-5.465-5.465-3.019 0-5.466 2.447-5.466 5.465 0 3.019 2.447 5.466 5.466 5.466z"/><path class="seq-preload-circle seq-preload-circle-3" d="M31.322 15.334c4.049 0 7.332-3.282 7.332-7.332 0-4.049-3.282-7.332-7.332-7.332s-7.332 3.283-7.332 7.332c0 4.05 3.283 7.332 7.332 7.332z"/></g></svg>
-      </div>
-      
-    </div>
-    
-        <div class="logo">
-            <h1>Earth</h1>
-            <h2>E</h2>
-        </div>
-        <nav>
-          <ul>
-            <li><a href="#1"><img src="assets/images/icon-1.png" alt=""> <em>Homepage</em></a></li>
-            <li><a href="#2"><img src="assets/images/icon-2.png" alt=""> <em>About Us</em></a></li>
-            <li><a href="#3"><img src="assets/images/icon-3.png" alt=""> <em>Our Gallery</em></a></li>
-            <li><a href="#4"><img src="assets/images/icon-4.png" alt=""> <em>Contact Us</em></a></li>
-          </ul>
-        </nav>
-        
-        <div class="slides">
-          <div class="slide" id="1">
-            <div id="slider-wrapper">
-                <div id="image-slider">
-                  <ul>
-                    <li class="active-img">
-                      <div class="slide-caption">
-                        <h6>New Arrival</h6>
-                        <h2>Beautiful<br>Earth</h2>
-                      </div>
-                    </li>
-                    <li>
-                      <div class="slide-caption">
-                        <h6>Latest One</h6>
-                        <h2>Tech<br>Meeting</h2>
-                      </div>
-                    </li>
-                    <li>
-                      <div class="slide-caption">
-                        <h6>Your Update</h6>
-                        <h2>Smart<br>Devices</h2>
-                      </div>
-                    </li>                      
-                  </ul>
-                </div>
-                <div id="thumbnail">
-                  <ul>
-                    <li class="active"><img src="assets/images/thumb-01.jpg" alt="Earth" /></li>
-                    <li><img src="assets/images/thumb-02.jpg" alt="Meeting" /></li>
-                    <li><img src="assets/images/thumb-03.jpg" alt="Smart" /></li>         
-                  </ul>
-                </div>
-              </div>
-        </div>
-        <div class="slide" id="2">
-            <div class="content second-content">
-                <div id='tabs'>
-                  <ul>
-                    <li><a href='#tabs-1'><span class='fa fa-desktop'></span></a></li>
-                    <li><a href='#tabs-2'><span class='fa fa-users'></span></a></li>
-                    <li><a href='#tabs-3'><span class='fa fa-mobile'></span></a></li>
-                  </ul>
-                  <section class='tabs-content'>
-                    <article id='tabs-1'>
-                      <h2>What We Offer?</h2>
-                      <span>Free Bootstrap v4 Theme</span>
-                      <p>Earth is free Bootstrap v4.1.3 HTML Template for you. Feel free to edit and use this website template for any purpose. Please tell your friends about Tooplate website. Follow us on <a href="https://www.facebook.com/tooplate/">Facebook page</a> for latest updates. Thank you.</p>
-                      <p>Aenean non suscipit risus. Nam mattis, ipsum ac aliquet dignissim, eros justo tempor dolor, rutrum feugiat nunc mauris et elit. Mauris sem odio, accumsan vel sem sed, aliquam convallis dui. Aenean et commodo est.</p>
-                    </article>
-                    <article id='tabs-2'>
-                      <h2>What We Do?</h2>
-                      <span>Ut nec metus eros</span>
-                      <p>Nunc ultricies lectus et sem interdum molestie. Donec non sagittis velit. Vivamus vitae dictum metus, id imperdiet diam. Vestibulum elementum urna erat, eu tincidunt nisl pulvinar nec. Nulla a pharetra felis, sit amet placerat felis. Fusce a tincidunt dui.</p>
-                      <p>Quisque blandit purus orci, et cursus ante porttitor in. Curabitur eleifend turpis id diam ultricies hendrerit. Donec et lectus vitae justo porta molestie.</p>
-                    </article>
-                    <article id='tabs-3'>
-                      <h2>Who We Are?</h2>
-                      <span>Etiam tempus ex ut mi</span>
-                      <p>Vivamus dictum odio at enim posuere, et dapibus nunc sagittis. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.</p> 
-                      <p>Integer a egestas tellus, id malesuada velit. Pellentesque tincidunt, libero eu rutrum volutpat, nisi urna mollis felis, sed mollis sem libero at magna.</p>
-                    </article>
-                  </section>
-                </div>
-            </div>
-        </div>
-        <div class="slide" id="3">
-            <div class="content third-content">
-                <div class="container-fluid">
-                    <div class="row">
-                        <div class="owl-carousel owl-theme">
-                            <div class="col-md-12">
-                                <div class="featured-item"> 
-                                	<a href=""><img src="assets/images/item-01.jpg" alt=""></a>
-                                    <div class="down-content">
-                                    <h4>Donec non sagittis</h4>
-                                        <h6>$25.00</h6>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-12">
-                                <div class="featured-item">
-                                    <a href=""><img src="assets/images/item-02.jpg" alt=""></a>
-                                    <div class="down-content">
-                                        <h4>Nulla a pharetra</h4>
-                                        <h6>$35.00</h6>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-12">
-                                <div class="featured-item">
-                                    <img src="assets/images/item-03.jpg" alt="">
-                                    <div class="down-content">
-                                        <h4>Aliquam convallis</h4>
-                                        <h6>$45.00</h6>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-12">
-                                <div class="featured-item">
-                                    <img src="assets/images/item-04.jpg" alt="">
-                                    <div class="down-content">
-                                        <h4>Vivamus vitae #4</h4>
-                                        <h6>$55.00</h6>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-12">
-                                <div class="featured-item">
-                                    <img src="assets/images/item-05.jpg" alt="">
-                                    <div class="down-content">
-                                        <h4>Vivamus vitae #6</h4>
-                                        <h6>$65.00</h6>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-12">
-                                <div class="featured-item">
-                                    <img src="assets/images/item-06.jpg" alt="">
-                                    <div class="down-content">
-                                        <h4>Vivamus vitae #8</h4>
-                                        <h6>$75.00</h6>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-12">
-                                <div class="featured-item">
-                                    <img src="assets/images/item-07.jpg" alt="">
-                                    <div class="down-content">
-                                        <h4>Donec non sagittis</h4>
-                                        <h6>$85.00</h6>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-12">
-                                <div class="featured-item">
-                                    <img src="assets/images/item-08.jpg" alt="">
-                                    <div class="down-content">
-                                        <h4>Curabitur sed 8</h4>
-                                        <h6>$95.00</h6>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-12">
-                                <div class="featured-item">
-                                    <img src="assets/images/item-09.jpg" alt="">
-                                    <div class="down-content">
-                                        <h4>Curabitur sed 10</h4>
-                                        <h6>$105.00</h6>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-12">
-                                <div class="featured-item">
-                                    <img src="assets/images/item-10.jpg" alt="">
-                                    <div class="down-content">
-                                        <h4>Curabitur sed 12</h4>
-                                        <h6>$115.00</h6>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-12">
-                                <div class="featured-item">
-                                    <img src="assets/images/item-11.jpg" alt="">
-                                    <div class="down-content">
-                                        <h4>Curabitur sed 14</h4>
-                                        <h6>$125.00</h6>
-                                    </div>
-                                </div>
-                            </div>
-                         </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="slide" id="4">
-            <div class="content fourth-content">
-                <div class="container-fluid">
-                    <form id="contact" action="" method="post">
-                        <div class="row">
-                          <div class="col-md-12">
-                            <h2>Say Hello!</h2>
-                          </div>
-                          <div class="col-md-6">
-                            <fieldset>
-                              <input name="name" type="text" class="form-control" id="name" placeholder="Your name..." required="">
-                            </fieldset>
-                          </div>
-                          <div class="col-md-6">
-                            <fieldset>
-                              <input name="email" type="text" class="form-control" id="email" placeholder="Your email..." required="">
-                            </fieldset>
-                          </div>
-                          <div class="col-md-12">
-                            <fieldset>
-                              <textarea name="message" rows="6" class="form-control" id="message" placeholder="Your message..." required=""></textarea>
-                            </fieldset>
-                          </div>
-                          <div class="col-md-12">
-                            <fieldset>
-                              <button type="submit" id="form-submit" class="button">Send Now</button>
-                            </fieldset>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
+        @keyframes grid-pan {
+            0% { transform: translate3d(0, 0, 0); }
+            100% { transform: translate3d(-80px, -40px, 0); }
+        }
 
+        .shell {
+            position: relative;
+            width: 100%;
+            max-width: 1200px;
+            height: 100%;
+            max-height: 720px;
+            display: grid;
+            grid-template-columns: minmax(0, 1.7fr) minmax(260px, 1.1fr);
+            gap: 22px;
+            z-index: 2;
+        }
 
-    <!-- Bootstrap core JavaScript -->
-    <script src="vendor/jquery/jquery.min.js"></script>
-    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+        .panel {
+            background: radial-gradient(circle at top left, rgba(77, 242, 255, 0.12), transparent 70%) 
+                        ,rgba(4, 7, 22, 0.98);
+            border-radius: var(--radius-xl);
+            border: 1px solid var(--border-subtle);
+            box-shadow: 0 18px 80px rgba(15,23,42,0.96);
+            padding: 22px 22px 20px;
+            backdrop-filter: blur(18px) saturate(150%);
+            position: relative;
+            overflow: hidden;
+        }
 
+        .panel::before {
+            content: "";
+            position: absolute;
+            inset: -2px;
+            border-radius: inherit;
+            background:
+                linear-gradient(120deg, transparent 0%, rgba(77,242,255,0.1) 40%, transparent 100%);
+            opacity: 0;
+            mix-blend-mode: screen;
+            pointer-events: none;
+            transition: opacity var(--transition-mid);
+        }
+        .panel:hover::before {
+            opacity: 1;
+        }
 
-    <!-- Additional Scripts -->
-    <script src="assets/js/owl.js"></script>
-    <script src="assets/js/accordations.js"></script>
-    <script src="assets/js/main.js"></script>
+        /* Left: main console */
+        .headline {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 4px;
+        }
 
-    <script type="text/javascript">
-        $(document).ready(function() {
+        .eyebrow {
+            font-size: 10px;
+            text-transform: uppercase;
+            letter-spacing: 0.13em;
+            color: var(--accent);
+            padding: 4px 10px;
+            border-radius: var(--radius-pill);
+            border: 1px solid rgba(77, 242, 255, 0.4);
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: radial-gradient(circle at top, rgba(77,242,255,0.14), transparent);
+        }
 
-            // navigation click actions 
-            $('.scroll-link').on('click', function(event){
-                event.preventDefault();
-                var sectionID = $(this).attr("data-id");
-                scrollToID('#' + sectionID, 750);
-            });
-            // scroll to top action
-            $('.scroll-top').on('click', function(event) {
-                event.preventDefault();
-                $('html, body').animate({scrollTop:0}, 'slow');         
-            });
-            // mobile nav toggle
-            $('#nav-toggle').on('click', function (event) {
-                event.preventDefault();
-                $('#main-nav').toggleClass("open");
-            });
-        });
-        // scroll function
-        function scrollToID(id, speed){
-            var offSet = 0;
-            var targetOffset = $(id).offset().top - offSet;
-            var mainNav = $('#main-nav');
-            $('html,body').animate({scrollTop:targetOffset}, speed);
-            if (mainNav.hasClass("open")) {
-                mainNav.css("height", "1px").removeClass("in").addClass("collapse");
-                mainNav.removeClass("open");
+        h1 {
+            font-size: 26px;
+            font-weight: 700;
+            letter-spacing: 0.02em;
+            display: flex;
+            align-items: baseline;
+            gap: 8px;
+        }
+
+        h1 span.tag {
+            font-size: 11px;
+            font-weight: 400;
+            padding: 4px 9px;
+            border-radius: var(--radius-pill);
+            background: rgba(15,23,42,0.9);
+            border: 1px solid rgba(148,163,253,0.3);
+            color: var(--accent);
+        }
+
+        .subtitle {
+            font-size: 13px;
+            color: var(--text-soft);
+            margin-bottom: 18px;
+            max-width: 540px;
+        }
+
+        .status {
+            padding: 9px 12px;
+            border-radius: var(--radius-pill);
+            font-size: 11px;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 14px;
+            border: 1px solid rgba(148,163,253,0.22);
+            background: rgba(9,9,19,0.92);
+            box-shadow: var(--glow-soft);
+            transition: all var(--transition-fast);
+        }
+
+        .status span.dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 999px;
+            background: var(--accent);
+            box-shadow: 0 0 10px var(--accent);
+        }
+
+        .status.idle span.dot {
+            background: var(--accent);
+            box-shadow: 0 0 10px var(--accent);
+        }
+
+        .status.recording {
+            border-color: rgba(255,51,102,0.6);
+            background: radial-gradient(circle at top left, rgba(255,51,102,0.18), rgba(8,6,20,0.98));
+            color: #ffe4ea;
+        }
+        .status.recording span.dot {
+            background: var(--danger);
+            box-shadow: 0 0 12px var(--danger);
+            animation: blink 0.7s infinite alternate;
+        }
+
+        .status.processing {
+            border-color: rgba(148,163,253,0.6);
+            background: radial-gradient(circle at top, rgba(123,92,255,0.16), rgba(6,9,24,0.98));
+            color: var(--accent);
+        }
+
+        .status.playing {
+            border-color: rgba(34,197,94,0.7);
+            background: radial-gradient(circle at left, rgba(22,163,74,0.26), rgba(3,7,18,0.98));
+            color: #bbf7d0;
+        }
+        .status.playing span.dot {
+            background: #22c55e;
+            box-shadow: 0 0 12px #22c55e;
+        }
+
+        @keyframes blink {
+            0% { opacity: 0.4; }
+            100% { opacity: 1; }
+        }
+
+        .timer {
+            font-family: 'Space Grotesk', monospace;
+            font-size: 22px;
+            font-weight: 500;
+            color: var(--accent);
+            margin-bottom: 10px;
+        }
+
+        .waveform {
+            height: 72px;
+            border-radius: 18px;
+            background: radial-gradient(circle at top, rgba(77,242,255,0.07), transparent),
+                        rgba(2,6,23,0.98);
+            border: 1px solid rgba(75,85,99,0.68);
+            display: flex;
+            align-items: flex-end;
+            gap: 4px;
+            padding: 10px 16px;
+            margin-bottom: 16px;
+            overflow: hidden;
+            box-shadow: 0 10px 40px rgba(15,23,42,0.95);
+        }
+
+        .waveform-bar {
+            flex: 1;
+            max-width: 6px;
+            background: linear-gradient(to top, var(--accent-pink), var(--accent));
+            border-radius: 999px;
+            height: 10px;
+            opacity: 0.78;
+            transform-origin: bottom center;
+            transition: height 0.08s linear, opacity 0.15s ease;
+        }
+
+        .controls {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 12px;
+        }
+
+        button {
+            border: none;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 12px 22px;
+            border-radius: var(--radius-pill);
+            font-size: 12px;
+            font-weight: 500;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            background: transparent;
+            color: var(--text-main);
+            position: relative;
+            overflow: hidden;
+            transition: all var(--transition-mid);
+            outline: none;
+            backdrop-filter: blur(10px);
+            white-space: nowrap;
+        }
+
+        button span.icon {
+            font-size: 14px;
+        }
+
+        .record-btn {
+            background: radial-gradient(circle at top left, rgba(255,90,241,0.22), transparent),
+                        radial-gradient(circle at bottom right, rgba(77,242,255,0.28), transparent),
+                        rgba(5,15,35,1);
+            border: 1px solid rgba(77,242,255,0.6);
+            box-shadow: var(--glow-soft);
+        }
+
+        .record-btn:hover:not(:disabled) {
+            transform: translateY(-1px) scale(1.02);
+            box-shadow: 0 0 32px rgba(77,242,255,0.5);
+        }
+
+        .record-btn.recording {
+            background: radial-gradient(circle at center, rgba(255,51,102,0.33), rgba(7,6,18,1));
+            border-color: rgba(255,51,102,0.9);
+            box-shadow: 0 0 40px rgba(255,51,102,0.7);
+        }
+
+        .stop-btn {
+            padding-inline: 16px;
+            background: rgba(15,23,42,0.96);
+            border-radius: var(--radius-pill);
+            border: 1px solid rgba(148,163,253,0.5);
+            color: var(--accent);
+        }
+
+        .stop-btn:hover:not(:disabled) {
+            transform: translateY(-1px);
+            box-shadow: 0 0 22px rgba(123,92,255,0.4);
+        }
+
+        button:disabled {
+            opacity: 0.36;
+            cursor: not-allowed;
+            box-shadow: none;
+            transform: none;
+        }
+
+        .hint {
+            font-size: 10px;
+            color: var(--text-soft);
+        }
+
+        .error {
+            margin-top: 6px;
+            margin-bottom: 4px;
+            padding: 8px 10px;
+            border-radius: 12px;
+            font-size: 10px;
+            background: rgba(127,29,29,0.88);
+            color: #fee2e2;
+            border: 1px solid rgba(254,202,202,0.3);
+            display: none;
+        }
+
+        .error.show {
+            display: block;
+        }
+
+        audio {
+            width: 100%;
+            margin-top: 10px;
+            display: none;
+            filter: drop-shadow(0 8px 18px rgba(15,23,42,0.9));
+        }
+
+        audio.show {
+            display: block;
+        }
+
+        /* Right: persona + agentic story */
+        .persona-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 8px;
+        }
+
+        .orb {
+            width: 40px;
+            height: 40px;
+            border-radius: 999px;
+            background:
+                radial-gradient(circle at 30% 0%, #ffffff, transparent 55%),
+                radial-gradient(circle at 80% 80%, var(--accent-purple), transparent),
+                radial-gradient(circle at 0% 90%, var(--accent), transparent);
+            box-shadow: 0 0 38px rgba(77,242,255,0.9);
+            position: relative;
+            animation: orb-float 3.4s infinite ease-in-out;
+        }
+
+        .orb::after {
+            content: "";
+            position: absolute;
+            inset: 9px;
+            border-radius: inherit;
+            border: 1px solid rgba(148,163,253,0.55);
+            opacity: 0.9;
+            box-shadow: 0 0 12px rgba(123,92,255,0.7) inset;
+        }
+
+        @keyframes orb-float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-4px); }
+        }
+
+        .persona-title {
+            font-size: 15px;
+            font-weight: 600;
+        }
+
+        .persona-sub {
+            font-size: 10px;
+            color: var(--text-soft);
+        }
+
+        .chips {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            margin: 6px 0 10px;
+        }
+
+        .chip {
+            padding: 4px 8px;
+            font-size: 9px;
+            border-radius: var(--radius-pill);
+            border: 1px solid rgba(148,163,253,0.32);
+            color: var(--accent);
+            background: radial-gradient(circle at top, rgba(148,163,253,0.14), transparent);
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .chip span {
+            font-size: 10px;
+        }
+
+        .timeline {
+            margin-top: 4px;
+            padding-left: 4px;
+            border-left: 1px solid rgba(75,85,99,0.6);
+            display: grid;
+            gap: 6px;
+            font-size: 9px;
+            color: var(--text-soft);
+        }
+
+        .timeline-item {
+            padding-left: 8px;
+            position: relative;
+        }
+
+        .timeline-item::before {
+            content: "";
+            position: absolute;
+            left: -5px;
+            top: 4px;
+            width: 6px;
+            height: 6px;
+            border-radius: 999px;
+            background: var(--accent);
+            box-shadow: 0 0 10px rgba(77,242,255,0.8);
+        }
+
+        .timeline-label {
+            font-size: 8px;
+            text-transform: uppercase;
+            letter-spacing: 0.14em;
+            color: rgba(148,163,253,0.9);
+        }
+
+        .timeline-highlight {
+            color: #e5e7eb;
+            font-size: 9px;
+        }
+
+        .microcopy {
+            margin-top: 8px;
+            font-size: 9px;
+            color: var(--text-soft);
+            line-height: 1.5;
+        }
+
+        .microcopy strong {
+            color: var(--accent);
+            font-weight: 500;
+        }
+
+        .cta-line {
+            margin-top: 10px;
+            font-size: 9px;
+            color: var(--accent);
+        }
+
+        .cta-line span {
+            color: var(--accent-pink);
+        }
+
+        @media (max-width: 880px) {
+            body {
+                padding: 14px;
+                overflow-y: auto;
+            }
+            .shell {
+                grid-template-columns: 1fr;
+                max-height: none;
+                height: auto;
+            }
+            .panel {
+                max-height: none;
             }
         }
-        if (typeof console === "undefined") {
-            console = {
-                log: function() { }
-            };
-        }
-    </script>
+    </style>
+</head>
+<body>
+<div class="shell">
 
-  </body>
+    <!-- LEFT: Agentic Voice Console -->
+    <section class="panel">
+        <div class="headline">
+            <div class="eyebrow">
+                <span>◎</span> Agentic Identity Console
+            </div>
+        </div>
+
+        <h1>
+            Peyman Teymoori
+            <span class="tag">Live AI-Augmented Intro</span>
+        </h1>
+
+        <p class="subtitle">
+            This portal lets you talk to an agentic version of my CV. Ask about my work on
+            <strong>Agentic AI</strong>, <strong>network architectures</strong>, industry collaboration,
+            or how we design future-proof learning ecosystems.
+        </p>
+
+        <div class="status idle" id="status">
+            <span class="dot"></span>
+            Ready // tap to start capturing your question.
+        </div>
+
+        <div class="timer" id="timer">00:00</div>
+
+        <div class="waveform" id="waveform">
+            <div class="waveform-bar" style="height: 12px;"></div>
+            <div class="waveform-bar" style="height: 18px;"></div>
+            <div class="waveform-bar" style="height: 26px;"></div>
+            <div class="waveform-bar" style="height: 16px;"></div>
+            <div class="waveform-bar" style="height: 34px;"></div>
+            <div class="waveform-bar" style="height: 14px;"></div>
+            <div class="waveform-bar" style="height: 30px;"></div>
+            <div class="waveform-bar" style="height: 20px;"></div>
+            <div class="waveform-bar" style="height: 22px;"></div>
+            <div class="waveform-bar" style="height: 28px;"></div>
+            <div class="waveform-bar" style="height: 16px;"></div>
+            <div class="waveform-bar" style="height: 24px;"></div>
+        </div>
+
+        <div class="controls">
+            <button class="record-btn" id="recordBtn">
+                <span class="icon" id="recordIcon">🎤</span>
+                <span id="recordText">Start Voice Query</span>
+            </button>
+
+            <button class="stop-btn" id="stopBtn" disabled>
+                <span class="icon">⏹</span>
+                Stop
+            </button>
+
+            <div class="hint">
+                Try: “What is your vision for Agentic AI in education & industry?”
+            </div>
+        </div>
+
+        <div class="error" id="error"></div>
+
+        <audio id="responseAudio" controls></audio>
+    </section>
+
+    <!-- RIGHT: Futuristic Persona Panel -->
+    <aside class="panel">
+        <div class="persona-header">
+            <div class="orb"></div>
+            <div>
+                <div class="persona-title">Agent P // Orchestrator of Agentic Systems</div>
+                <div class="persona-sub">
+                    Blending research, real-world systems, and AI agents that actually ship.
+                </div>
+            </div>
+        </div>
+
+        <div class="chips">
+            <div class="chip"><span>⚡</span> Agentic AI & Multi-Agent Systems</div>
+            <div class="chip"><span>🌐</span> Recursive Network Architectures (RINA)</div>
+            <div class="chip"><span>🏭</span> Industry-Embedded Education</div>
+            <div class="chip"><span>🛡</span> Secure-by-Design Infrastructures</div>
+            <div class="chip"><span>📊</span> Data & Decision Intelligence</div>
+        </div>
+
+        <div class="timeline">
+            <div class="timeline-item">
+                <div class="timeline-label">Now</div>
+                <div class="timeline-highlight">
+                    Building agentic ecosystems where <strong>humans + AI</strong> co-create value in real companies.
+                </div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-label">Research</div>
+                <div>
+                    Architectures for <strong>coordinated, recursive, explainable agents</strong> across networks,
+                    energy systems & critical infrastructure.
+                </div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-label">Education</div>
+                <div>
+                    Program lead for an <strong>industry-integrated IT bachelor</strong>, shaping
+                    next-gen engineers who deploy agents, not slides.
+                </div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-label">Vision</div>
+                <div>
+                    Turn every student, team, and organization into a <strong>multi-agent system</strong>:
+                    aligned, autonomous & accountable.
+                </div>
+            </div>
+        </div>
+
+        <p class="microcopy">
+            In this workshop, I’ll show how <strong>Agentic AI</strong> moves beyond chatbots:
+            orchestrating tool-using, goal-driven agents that plug into real infrastructures —
+            from networks and cloud stacks to learning environments and energy communities.
+        </p>
+
+        <p class="cta-line">
+            Speak to the portal on the left. <span>Ask anything.</span>
+            The agent will answer as me — or better.
+        </p>
+    </aside>
+</div>
+
+<script>
+    const WEBHOOK_URL = 'https://ptptpt.app.n8n.cloud/webhook/voice-cv-assistant';
+
+    let mediaRecorder;
+    let audioChunks = [];
+    let timerInterval;
+    let startTime;
+    let audioContext;
+    let analyser;
+    let animationId;
+
+    const recordBtn = document.getElementById('recordBtn');
+    const stopBtn = document.getElementById('stopBtn');
+    const statusEl = document.getElementById('status');
+    const timerEl = document.getElementById('timer');
+    const errorDiv = document.getElementById('error');
+    const responseAudio = document.getElementById('responseAudio');
+    const waveformBars = document.querySelectorAll('.waveform-bar');
+    const recordIcon = document.getElementById('recordIcon');
+    const recordText = document.getElementById('recordText');
+
+    function setStatus(text, mode) {
+        statusEl.textContent = '';
+        const dot = document.createElement('span');
+        dot.className = 'dot';
+        statusEl.appendChild(dot);
+        statusEl.appendChild(document.createTextNode(' ' + text));
+        statusEl.className = 'status ' + mode;
+    }
+
+    function showError(message) {
+        errorDiv.textContent = message;
+        errorDiv.classList.add('show');
+        setTimeout(() => errorDiv.classList.remove('show'), 6000);
+    }
+
+    function updateTimer() {
+        const elapsed = Date.now() - startTime;
+        const minutes = Math.floor(elapsed / 60000);
+        const seconds = Math.floor((elapsed % 60000) / 1000);
+        timerEl.textContent =
+            `${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+    }
+
+    function animateWaveform() {
+        if (!analyser) return;
+
+        const dataArray = new Uint8Array(analyser.frequencyBinCount);
+        analyser.getByteFrequencyData(dataArray);
+
+        waveformBars.forEach((bar, index) => {
+            const dataIndex = Math.floor((index / waveformBars.length) * dataArray.length);
+            const value = dataArray[dataIndex];
+            const height = Math.max(8, (value / 255) * 64);
+            bar.style.height = `${height}px`;
+            bar.style.opacity = 0.5 + (value / 255) * 0.5;
+        });
+
+        animationId = requestAnimationFrame(animateWaveform);
+    }
+
+    function resetWaveform() {
+        waveformBars.forEach(bar => {
+            bar.style.height = '10px';
+            bar.style.opacity = 0.78;
+        });
+    }
+
+    async function startRecording() {
+        try {
+            const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+
+            audioContext = new (window.AudioContext || window.webkitAudioContext)();
+            const source = audioContext.createMediaStreamSource(stream);
+            analyser = audioContext.createAnalyser();
+            analyser.fftSize = 256;
+            source.connect(analyser);
+            animateWaveform();
+
+            mediaRecorder = new MediaRecorder(stream, { mimeType: 'audio/webm' });
+            audioChunks = [];
+
+            mediaRecorder.ondataavailable = e => {
+                if (e.data.size > 0) audioChunks.push(e.data);
+            };
+
+            mediaRecorder.onstop = async () => {
+                cancelAnimationFrame(animationId);
+                resetWaveform();
+
+                const audioBlob = new Blob(audioChunks, { type: 'audio/webm' });
+                await sendAudio(audioBlob);
+
+                stream.getTracks().forEach(t => t.stop());
+                if (audioContext) audioContext.close();
+            };
+
+            mediaRecorder.start();
+            startTime = Date.now();
+            timerInterval = setInterval(updateTimer, 120);
+
+            setStatus('Recording… ask your question to Agent P.', 'recording');
+            recordBtn.classList.add('recording');
+            recordIcon.textContent = '⏺';
+            recordText.textContent = 'Listening';
+            recordBtn.disabled = true;
+            stopBtn.disabled = false;
+            responseAudio.classList.remove('show');
+        } catch (err) {
+            console.error(err);
+            showError('Microphone access blocked. Enable it to talk to the agent.');
+            setStatus('Permission required.', 'idle');
+        }
+    }
+
+    function stopRecording() {
+        if (mediaRecorder && mediaRecorder.state !== 'inactive') {
+            mediaRecorder.stop();
+            clearInterval(timerInterval);
+            setStatus('Processing your question with my agentic stack…', 'processing');
+            stopBtn.disabled = true;
+        }
+    }
+
+    async function sendAudio(audioBlob) {
+        try {
+            const formData = new FormData();
+            formData.append('data', audioBlob, 'recording.webm');
+
+            setStatus('Transmitting to backend AI pipeline…', 'processing');
+
+            const response = await fetch(WEBHOOK_URL, {
+                method: 'POST',
+                body: formData
+            });
+
+            if (!response.ok) {
+                throw new Error(`Server responded: ${response.status}`);
+            }
+
+            const responseBlob = await response.blob();
+            const audioUrl = URL.createObjectURL(responseBlob);
+
+            responseAudio.src = audioUrl;
+            responseAudio.classList.add('show');
+
+            setStatus('Playing my synthesized response…', 'playing');
+            responseAudio.play();
+
+            responseAudio.onended = () => {
+                setStatus('Ready // tap to start capturing your next question.', 'idle');
+                recordBtn.disabled = false;
+                recordBtn.classList.remove('recording');
+                recordIcon.textContent = '🎤';
+                recordText.textContent = 'Start Voice Query';
+                timerEl.textContent = '00:00';
+            };
+        } catch (err) {
+            console.error(err);
+            showError('Failed to reach the agentic backend. Try again in a moment.');
+            setStatus('Ready // system idle.', 'idle');
+            recordBtn.disabled = false;
+            recordBtn.classList.remove('recording');
+            recordIcon.textContent = '🎤';
+            recordText.textContent = 'Start Voice Query';
+            timerEl.textContent = '00:00';
+        }
+    }
+
+    recordBtn.addEventListener('click', startRecording);
+    stopBtn.addEventListener('click', stopRecording);
+
+    if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
+        showError('This browser cannot access audio. Please use a modern browser like Chrome or Edge.');
+        recordBtn.disabled = true;
+        setStatus('Incompatible browser detected.', 'idle');
+    }
+</script>
+</body>
 </html>
