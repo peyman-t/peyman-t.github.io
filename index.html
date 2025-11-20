@@ -5,7 +5,6 @@
     <title>Agentic AI // Voice Portal</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <!-- Optional futuristic font -->
     <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;500;700&display=swap" rel="stylesheet">
 
     <style>
@@ -294,6 +293,11 @@
             outline: none;
             backdrop-filter: blur(10px);
             white-space: nowrap;
+            /* Prevent text selection during hold */
+            user-select: none;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
         }
 
         button span.icon {
@@ -520,7 +524,6 @@
 <body>
 <div class="shell">
 
-    <!-- LEFT: Agentic Voice Console -->
     <section class="panel">
         <div class="headline">
             <div class="eyebrow">
@@ -564,16 +567,11 @@
         <div class="controls">
             <button class="record-btn" id="recordBtn">
                 <span class="icon" id="recordIcon">🎤</span>
-                <span id="recordText">Start Voice Query</span>
-            </button>
-
-            <button class="stop-btn" id="stopBtn" disabled>
-                <span class="icon">⏹</span>
-                Stop
+                <span id="recordText">Hold to Talk</span>
             </button>
 
             <div class="hint">
-                Try: “What is your vision for Agentic AI in education & industry?”
+                Press and hold to speak. Release to send.
             </div>
         </div>
 
@@ -582,7 +580,6 @@
         <audio id="responseAudio" controls></audio>
     </section>
 
-    <!-- RIGHT: Futuristic Persona Panel -->
     <aside class="panel">
         <div class="persona-header">
             <div class="orb"></div>
@@ -655,9 +652,9 @@
     let audioContext;
     let analyser;
     let animationId;
+    let isRecording = false; // Tracks logic state
 
     const recordBtn = document.getElementById('recordBtn');
-    const stopBtn = document.getElementById('stopBtn');
     const statusEl = document.getElementById('status');
     const timerEl = document.getElementById('timer');
     const errorDiv = document.getElementById('error');
@@ -713,9 +710,40 @@
         });
     }
 
-    async function startRecording() {
+    function resetUI() {
+        setStatus('Ready // hold to speak.', 'idle');
+        recordBtn.disabled = false;
+        recordBtn.classList.remove('recording');
+        recordIcon.textContent = '🎤';
+        recordText.textContent = 'Hold to Talk';
+        timerEl.textContent = '00:00';
+        isRecording = false;
+    }
+
+    async function startRecording(e) {
+        // Prevent default behavior (like text selection on double clicks)
+        if(e) e.preventDefault();
+        if(isRecording) return; // Prevent double fire
+
         try {
+            isRecording = true; // We intend to record
+            
+            // Visual Feedback immediately
+            recordBtn.classList.add('recording');
+            recordIcon.textContent = '⏺';
+            recordText.textContent = 'Listening…';
+            setStatus('Initializing audio...', 'recording');
+            responseAudio.classList.remove('show');
+
             const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+
+            // RACE CONDITION CHECK:
+            // If the user released the button while we were waiting for the stream:
+            if (!isRecording) {
+                stream.getTracks().forEach(t => t.stop()); // Stop the stream we just got
+                resetUI(); // Ensure UI is clean
+                return; // Don't start recorder
+            }
 
             audioContext = new (window.AudioContext || window.webkitAudioContext)();
             const source = audioContext.createMediaStreamSource(stream);
@@ -735,8 +763,13 @@
                 cancelAnimationFrame(animationId);
                 resetWaveform();
 
-                const audioBlob = new Blob(audioChunks, { type: 'audio/webm' });
-                await sendAudio(audioBlob);
+                // Only send if we actually have data
+                if (audioChunks.length > 0) {
+                    const audioBlob = new Blob(audioChunks, { type: 'audio/webm' });
+                    await sendAudio(audioBlob);
+                } else {
+                    resetUI();
+                }
 
                 stream.getTracks().forEach(t => t.stop());
                 if (audioContext) audioContext.close();
@@ -745,28 +778,29 @@
             mediaRecorder.start();
             startTime = Date.now();
             timerInterval = setInterval(updateTimer, 120);
+            setStatus('Recording… ask your question.', 'recording');
 
-            setStatus('Recording… ask your question to Agent P.', 'recording');
-            recordBtn.classList.add('recording');
-            recordIcon.textContent = '⏺';
-            recordText.textContent = 'Listening';
-            recordBtn.disabled = true;
-            stopBtn.disabled = false;
-            responseAudio.classList.remove('show');
         } catch (err) {
             console.error(err);
             showError('Microphone access blocked. Enable it to talk to the agent.');
-            setStatus('Permission required.', 'idle');
+            resetUI();
         }
     }
 
-    function stopRecording() {
-        if (mediaRecorder && mediaRecorder.state !== 'inactive') {
+    function stopRecording(e) {
+        if(e) e.preventDefault();
+        
+        // User signal to stop
+        isRecording = false; 
+
+        if (mediaRecorder && mediaRecorder.state === 'recording') {
             mediaRecorder.stop();
             clearInterval(timerInterval);
-            setStatus('Processing your question with my agentic stack…', 'processing');
-            stopBtn.disabled = true;
+            setStatus('Processing your question…', 'processing');
         }
+        // Note: If mediaRecorder isn't 'recording' yet (because startRecording is still
+        // waiting for the microphone), the check inside startRecording will see
+        // isRecording == false and cancel everything automatically.
     }
 
     async function sendAudio(audioBlob) {
@@ -792,30 +826,31 @@
             responseAudio.classList.add('show');
 
             setStatus('Playing my synthesized response…', 'playing');
+            recordBtn.disabled = true; // Disable button during playback
             responseAudio.play();
 
             responseAudio.onended = () => {
-                setStatus('Ready // tap to start capturing your next question.', 'idle');
-                recordBtn.disabled = false;
-                recordBtn.classList.remove('recording');
-                recordIcon.textContent = '🎤';
-                recordText.textContent = 'Start Voice Query';
-                timerEl.textContent = '00:00';
+                resetUI();
             };
         } catch (err) {
             console.error(err);
             showError('Failed to reach the agentic backend. Try again in a moment.');
-            setStatus('Ready // system idle.', 'idle');
-            recordBtn.disabled = false;
-            recordBtn.classList.remove('recording');
-            recordIcon.textContent = '🎤';
-            recordText.textContent = 'Start Voice Query';
-            timerEl.textContent = '00:00';
+            resetUI();
         }
     }
 
-    recordBtn.addEventListener('click', startRecording);
-    stopBtn.addEventListener('click', stopRecording);
+    // Desktop Events
+    recordBtn.addEventListener('mousedown', startRecording);
+    recordBtn.addEventListener('mouseup', stopRecording);
+    recordBtn.addEventListener('mouseleave', (e) => {
+        // If mouse leaves button while recording, stop it
+        if (isRecording) stopRecording(e);
+    });
+    
+    // Touch Events (Mobile)
+    recordBtn.addEventListener('touchstart', startRecording);
+    recordBtn.addEventListener('touchend', stopRecording);
+    recordBtn.addEventListener('touchcancel', stopRecording);
 
     if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
         showError('This browser cannot access audio. Please use a modern browser like Chrome or Edge.');
@@ -824,7 +859,6 @@
     }
 </script>
 
-<!-- QR Code Section -->
 <div style="max-width: 1200px; margin: 24px auto 0; text-align: center; position: relative; z-index: 2;">
     <div style="background: radial-gradient(circle at top left, rgba(77, 242, 255, 0.12), transparent 70%), rgba(4, 7, 22, 0.98); border-radius: 26px; border: 1px solid rgba(255, 255, 255, 0.08); padding: 28px; backdrop-filter: blur(18px) saturate(150%); box-shadow: 0 18px 80px rgba(15,23,42,0.96); display: inline-block;">
         <div style="font-size: 11px; text-transform: uppercase; letter-spacing: 0.13em; color: var(--accent); margin-bottom: 12px; opacity: 0.9;">
