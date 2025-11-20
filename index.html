@@ -766,6 +766,13 @@
                 // Only send if we actually have data
                 if (audioChunks.length > 0) {
                     const audioBlob = new Blob(audioChunks, { type: 'audio/webm' });
+                    
+                    // --- NEW: Change Button to "Wait" ---
+                    recordText.textContent = 'Wait';
+                    recordIcon.textContent = '⏳';
+                    recordBtn.disabled = true; // Prevent double-clicks while sending
+                    // ------------------------------------
+                    
                     await sendAudio(audioBlob);
                 } else {
                     resetUI();
@@ -826,7 +833,7 @@
             responseAudio.classList.add('show');
 
             setStatus('Playing my synthesized response…', 'playing');
-            recordBtn.disabled = true; // Disable button during playback
+            // Note: Button is already disabled from onstop, we keep it disabled here.
             responseAudio.play();
 
             responseAudio.onended = () => {
