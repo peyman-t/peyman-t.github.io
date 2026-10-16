@@ -505,6 +505,14 @@ video::cue { font-family: "Barlow", "Segoe UI", sans-serif; background: rgba(18,
 .contact h2 { font-size: clamp(2.6rem, 1.4rem + 5vw, 6rem); margin-top: .4rem; }
 .person { font-family: var(--sans); padding-top: .4rem; }
 .who { font-weight: 600; font-size: 1.5rem; margin: 0 0 .2rem; }
+.who a {
+  color: var(--ink);
+  text-decoration: underline; text-decoration-color: var(--violet);
+  text-decoration-thickness: 2px; text-underline-offset: .2em;
+  background: linear-gradient(var(--lime), var(--lime)) no-repeat 0 92% / 0% 30%;
+  transition: background-size .3s var(--ease), text-decoration-color .2s;
+}
+.who a:hover { background-size: 100% 30%; text-decoration-color: transparent; }
 .person p { color: var(--ink-2); }
 .mail {
   display: inline-block; font-weight: 600; font-size: clamp(1.25rem, 1rem + 1vw, 1.9rem);
