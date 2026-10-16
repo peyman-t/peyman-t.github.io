@@ -211,7 +211,8 @@ h1 {
   line-height: .88; letter-spacing: -.016em;
 }
 h1 span, h1 em { display: block; }
-h1 em { font-style: italic; color: var(--violet); }
+/* extra room above the last line: the "g" in "beslutninger." otherwise lands on the "d" in "du." */
+h1 em { font-style: italic; color: var(--violet); margin-top: .16em; }
 .hero-logo {
   position: absolute; right: 0; bottom: .06em;
   width: clamp(120px, 16vw, 228px); height: auto;
